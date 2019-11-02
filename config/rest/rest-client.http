@@ -1,0 +1,165 @@
+# https://www.jetbrains.com/help/idea/rest-client-in-intellij-idea-code-editor.html
+# https://blog.jetbrains.com/idea/2017/09/whats-new-in-intellij-idea-2017-3-eap
+# https://blog.jetbrains.com/phpstorm/2017/09/editor-based-rest-client
+# https://youtrack.jetbrains.com/issue/WEB-28559
+# https://youtrack.jetbrains.com/issue/WEB-28638
+
+### Suche alle Kunden (<Strg><Click> fuer Web Browser)
+https://{{host}}
+Accept: application/hal+json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Suche mit vorhandener Kunde-ID
+https://{{host}}/00000000-0000-0000-0000-000000000001
+Accept: application/hal+json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Suche mit ungueltiger Kunde-ID
+https://{{host}}/YYYYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Suche mit nicht-vorhandener Kunde-ID
+https://{{host}}/f9999999-9999-9999-9999-999999999999
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Suche mit vorhandenem Nachnamen
+https://{{host}}/?nachname=Delta
+Accept: application/hal+json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Suche mit nicht-vorhandenem Nachnamen
+https://{{host}}/?nachname=Zeta
+Accept: application/hal+json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Suche mit vorhandener Email
+https://{{host}}/?email=alpha%40hska.edu
+Accept: application/hal+json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Suche mit nicht-vorhandener Email
+https://{{host}}/?email=zeta%40hska.edu
+Accept: application/hal+json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Streaming mit allen Kunden
+https://{{host}}
+Accept: text/event-stream
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Einen neuen Kunden anlegen
+POST https://{{host}}
+Content-Type: application/json
+ALPN: h2
+
+< kunde-neu.json
+
+### Einen neuen Kunden mit fehlerhaften Daten anlegen
+POST https://{{host}}
+Content-Type: application/json
+ALPN: h2
+
+< kunde-neu-invalid.json
+
+### Einen Kunden mittels PUT aktualisieren
+PUT https://{{host}}/00000000-0000-0000-0000-000000000001
+Content-Type: application/json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+< kunde-1-put.json
+
+### Einen Kunden mit fehlerhaften Werten mittels PUT aktualisieren
+PUT https://{{host}}/00000000-0000-0000-0000-000000000001
+Content-Type: application/json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+< kunde-1-put-invalid.json
+
+### Einen Kunden mittels PATCH aktualisieren
+PATCH https://{{host}}/00000000-0000-0000-0000-000000000001
+Content-Type: application/json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+[
+    { "op": "replace", "path": "/nachname", "value": "Neuername" },
+    { "op": "replace", "path": "/email", "value": "new.email@test.de" },
+    { "op": "add", "path": "/interessen", "value": "S" },
+    { "op": "remove", "path": "/interessen", "value": "L" }
+]
+
+### Einen Kunden mit fehlerhaften Daten mittels PATCH aktualisieren
+PATCH https://{{host}}/00000000-0000-0000-0000-000000000001
+Content-Type: application/json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+[
+    { "op": "replace", "path": "/nachname", "value": "?!" },
+    { "op": "replace", "path": "/email", "value": "email" }
+]
+
+### Einen Kunden mit fehlerhaften Interessen mittels PATCH aktualisieren
+PATCH https://{{host}}/00000000-0000-0000-0000-000000000001
+Content-Type: application/json
+Authorization: {{basic-auth}}
+ALPN: h2
+
+[
+    { "op": "replace", "path": "/nachname", "value": "Neuername" },
+    { "op": "replace", "path": "/email", "value": "new.email@test.de" },
+    { "op": "add", "path": "/interessen", "value": "R" },
+    { "op": "remove", "path": "/interessen", "value": "L" }
+]
+
+### Löschen mit vorhandener Kunde-ID
+DELETE https://{{host}}/00000000-0000-0000-0000-000000000004
+Authorization: {{basic-auth}}
+ALPN: h2
+
+### Löschen mit vorhandener Email
+DELETE https://{{host}}/?email=phi%40hska.cn
+Authorization: {{basic-auth}}
+ALPN: h2
+
+# -----------------------------------------------------------------
+# A c t u a t o r
+# -----------------------------------------------------------------
+
+### Uebersicht
+https://{{actuator}}
+Authorization: {{basic-auth}}
+
+### Mapping von HTTP-Requests, z.B.   GET && /
+https://{{actuator}}/mappings
+Authorization: {{basic-auth}}
+
+### Spring Beans
+https://{{actuator}}/beans
+Authorization: {{basic-auth}}
+
+### Umgebung und Properties
+https://{{actuator}}/env
+Authorization: {{basic-auth}}
+
+### Property server.ssl.protocol
+https://{{actuator}}/env/server.ssl.enabled-protocols
+Authorization: {{basic-auth}}
+
+### Shutdown
+POST https://{{actuator}}/shutdown
+Authorization: {{basic-auth}}
+Content-Type: application/json
+
+###

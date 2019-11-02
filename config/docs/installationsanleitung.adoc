@@ -1,0 +1,350 @@
+= Installationsanleitung
+
+Jürgen Zimmermann <Juergen.Zimmermann@HS-Karlsruhe.de>
+
+////
+Diese Anleitung ist in AsciiDoctor geschrieben und kann mit Chrome vernünftig
+gelesen werden, wenn man die Erweiterung "Asciidoctor.js Live Preview" installiert:
+https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia?hl=de
+Nach der Installation muss man in Chrome die URL chrome://extensions/ eingeben und dann
+bei "Asciidoctor.js Live Preview" den Haken bei "Zugriff auf Datei-URLs zulassen" setzen.
+Ein gute Tutorial zu AsciiDoctor gibt es bei http://www.vogella.com/tutorials/AsciiDoc/article.html.
+////
+
+IMPORTANT: 16 GB RAM sind für eine *vernünftige* Projektarbeit (d.h. für _Klausurpunkte_)
+           sinnvoll; 8 GB RAM sind grenzwertig.
+           Bei Bedarf kann ein Notebook der Fakultät ausgeliehen werden.
+
+IMPORTANT: Nur in den ersten beiden Vorlesungswochen kann es Unterstützung bei
+           Installationsproblemen geben.
+
+IMPORTANT: Diese Anleitung ist für Windows ab 10, damit jede/r Studierende auf dem
+           eigenen oder einem ausgeliehenen Notebook flexibel arbeiten kann
+           und nicht an die Poolräume gebunden ist.
+
+IMPORTANT: Windows Home ist für seriöse Softwareentwicklung _UNGEEIGNET_. Über MSDN-AA
+           können Student/inn/en kostenlos ein _seriöses_ Windows beziehen.
+
+IMPORTANT: Für andere Betriebssysteme sind Anpassungen notwendig.
+           Bei über 160 Studenten (3. und 4. Semester) kann es dafür leider keine
+           Unterstützung geben: +
+           Welche Linux-Variante? Welche Linux-Version? Welche OS/X-Version? +
+           Ggf. gibt es genügend Notebooks zum Ausleihen.
+
+TIP: Die Installation sämtlicher Software erfolgt in den Pfaden C:\Zimmermann
+     und C:\Z, damit sie in späteren Semestern leicht entfernt werden kann.
+
+<<<
+
+== Das Semesterlaufwerk als Laufwerk H:
+
+Um das Semesterlaufwerk als Laufwerk H: zur Verfügung zu haben, kann man
+in einer Powershell von Windows das folgende Kommando absetzen,
+falls man über VPN verbunden ist:
+
+....
+NET USE H: \\iwi-w-nas02.hs-karlsruhe.de\Semester
+....
+
+<<<
+
+== Installation von OpenJDK
+
+=== Kostenloser Support für OpenJDK vs. JDK von Oracle
+
+*OpenJDK* ist kostenlos, und zwar in Verbindung mit einem halbjährlichen Releasezyklus:
+siehe https://blogs.oracle.com/java-platform-group/extension-of-oracle-java-se-8-public-updates-and-java-web-start-support
+
+=== JDK von Oracle ggf. deinstallieren
+
+Falls JDK von Oracle installiert ist, muss es über _Apps & Features_ deinstalliert werden,
+z.B. bei Windows 10 über `[Windows-Taste]x  >  Apps und Features`:
+
+. _Java(TM) SE Development Kit_ (falls vorhanden)
+. _Java_.
+
+Falls es sich nicht deinstallieren lässt, gibt es u.a. folgende Möglichkeiten - _ohne Gewähr_:
+
+* http://sourceforge.net/projects/javara/files/javara/JavaRa
+* http://www.revouninstaller.com/revo_uninstaller_free_download.html
+* http://majorgeeks.com/Windows_Installer_CleanUp_Utility_d4459.html
+
+Jetzt sind noch folgende Nacharbeiten notwendig:
+
+* Das Verzeichnis `C:\ProgramData\Oracle\Java` löschen.
+* `C:\ProgramData\Oracle\Java\javapath` aus der Umgebungsvariable `PATH` entfernen:
+  `[WindowsTaste]i` betätigen, dann als Suchstring `Systemumgebungsvariablen bearbeiten`
+  eingeben und den einzigen Treffer auswählen.
+  Bei _Systemvariable_ (*nicht* bei _Benutzervariable_) die Variable `PATH` auswählen und
+  `C:\ProgramData\Oracle\Java\javapath` entfernen.
+
+=== Download
+
+_OpenJDK_ 12 herunterladen von http://jdk.java.net/12.
+
+=== Installation
+
+* _openjdk-<VERSION>_windows-x64_bin.zip_ in `C:\Zimmermann` auspacken.
+* `C:\Zimmermann\jdk-VERSION` danach umbenennen in `C:\Zimmermann\jdk`.
+
+<<<
+
+== Microsoft Visual Studio C++ Redistributable
+
+MongoDB benötigt zur Laufzeit _MSVC...dll_, welches in "Microsoft Visual Studio C++ 2017 Redistributable" enthalten ist, aber seit Windows 7 nicht mehr
+mitausgeliefert wird, und zwar weder x64 noch x86 (für die 32-Bit-Rechnerarchitektur).
+Über die _Systemsteuerung_ muss deshalb überprüft werden, ob es installiert ist.
+
+Falls es nachinstalliert werden muss, kann es von https://support.microsoft.com/de-de/help/2977003/the-latest-supported-visual-c-downloads
+heruntergeladen und anschließend installiert werden. MongoDB benötigt die 64-Bit-Variante.
+
+== Gradle, MongoDB, Git und SonarQube
+
+IMPORTANT: Falls Gradle, MongoDB, Git und SonarQube bereits installiert sind
+           (z.B. vom letzten Semester), dann die alten Installationsverzeichnisse
+           unterhalb von C:\Zimmermann löschen.
+
+=== ZIP-Datei
+
+Vom H-Laufwerk die beiden ZIP-Dateien `Zimmermann.zip` und `Zimmermann.zip` herunterladen.
+Die Datei `Zimmermann.zip` unter `C:\Zimmermann` auspacken;
+die Datei `Z.zip` unter `C:\Z` auspacken (dabei aufpassen, dass es nicht `C:\Z\Z` gibt).
+
+=== Umgebungsvariable setzen
+
+==== Eingabe der neuen Werte
+
+`[WindowsTaste]i` betätigen, dann als Suchstring `Systemumgebungsvariablen bearbeiten`
+eingeben und den einzigen Treffer auswählen.
+
+Bei _Systemvariable_ (*nicht* bei _Benutzervariable_) folgende Umgebungsvariable mit den
+jeweiligen Werten eintragen:
+
+[cols="2*", options="header"]
+|===
+|Name der Umgebungsvariable |Wert der Umgebungsvariable
+|`GIT_HOME`
+|`C:\Zimmermann\git`
+
+|`GRADLE_HOME`
+|`C:\Zimmermann\gradle`
+
+|`GRADLE_OPTS`
+|`-Xmx1024m -Xms512m -XX:MaxMetaspaceSize=384m`
+
+|`GRADLE_USER_HOME`
+|`C:\Z`
+
+|`GRAPHVIZ_DOT`
+|`C:\Zimmermann\Graphviz\bin\dot.exe`
+
+|`JAVA_HOME`
+|`C:\Zimmermann\jdk`
+
+|`KAFKA_DIR`
+| `C:\Zimmermann\kafka`
+
+|`PATH`
+|Ganz am *Anfang* ergänzen um (ohne Leerzeichen): +
+    `%JAVA_HOME%\bin;` +
+    `%GRADLE_HOME%\bin;` +
+    `C:\Zimmermann\mongodb\bin`; +
+    `%KAFKA_DIR%\bin\windows`; +
+    `%GIT_HOME%\bin`;
+|===
+
+==== Nachbereitung
+
+Die Umgebungsvariable abspeichern und die zugehörigen Fenster schließen.
+Evtl. offene Powershells schließen, weil diese nichts von den neuen
+Umgebungsvariablen wissen.
+
+=== Java testen
+
+In einer *neuen* Powershell die beiden folgenden Kommandos eingeben:
+
+....
+java --version
+javac --version
+....
+
+=== Gradle testen
+
+In einer Powershell die folgenden beiden Kommandos eingeben und die
+beiden Pfade in der jeweiligen Ausgabe überprüfen:
+
+....
+gradle --version
+....
+
+=== MongoDB testen
+
+In einer Powershell das folgende Kommando eingeben, um den MongoDB-Server zu starten:
+
+....
+mongod --config C:\Zimmermann\mongodb\config.yml
+....
+
+In einer zweiten Powershell das folgende Kommando (in einer Zeile) eingeben, um einen MongoDB-Client mit dem Server zu verbinden:
+
+....
+mongo -u admin -p p --authenticationDatabase admin --norc --ssl --host localhost --sslAllowInvalidCertificates --sslPEMKeyFile C:/Zimmermann/MongoDB/mongodb.pem
+....
+
+Danach in der MongoDB-Shell den Befehl `exit` eingeben, um den Client zu beenden.
+
+In der jetzt wieder freien Powershell kann nun der MongoDB-Server aus der ersten Powershell
+mit folgendem Kommando (in einer Zeile) heruntergefahren werden:
+
+....
+mongo --eval "db.shutdownServer({force: true})" -u admin -p p --authenticationDatabase admin --norc admin --tls --host localhost --tlsAllowInvalidCertificates --tlsCertificateKeyFile C:\Zimmermann\mongodb\mongodb.pem
+....
+
+=== Git initialisieren
+
+In einer Powershell die folgenden beiden Kommandos eingeben und dabei
+jeweils den eigenen Namen und die eigene Emailadresse verwenden:
+
+....
+    git --version
+    git config --global user.name "Max Mustermann"
+    git config --global user.email Max.Mustermann@beispiel.de
+....
+
+== IntelliJ IDEA
+
+=== _EAP_ vs. _Ultimate Edition_
+
+_EAP_ bedeutet _Early Access Program_ und entspricht einem _Weekly Build_.
+
+Die _Ultimate Edition_ ist die Variante, die man kaufen könnte, für die es
+aber eine studentische Lizenz gibt (s.u.).
+
+=== Registrierung für die _Ultimate Edition_
+
+Bei https://www.jetbrains.com/student muss man sich registrieren, um die _Ultimate Edition_
+für 1 Jahr kostenlos nutzen zu können. Dabei muss man die Email-Adresse mit der Domain `@hs-karlsruhe.de`
+verwenden - und nicht eine private Emailadresse. Anschließend kann man sich einloggen.
+
+=== Download
+
+* Für die _EAP_-Variante kann man sich die .EXE-Datei in der Variante _Runtime 11_ von
+  https://www.jetbrains.com/idea/nextversion herunterladen.
+* Die _Ultimate Edition_ kann man sich von https://www.jetbrains.com/idea/download
+  herunterladen.
+
+=== Installation
+
+Die EXE-Datei ausführen und dabei folgendes eingeben:
+
+* Installationsverzeichnis `C:\Zimmermann\IntelliJ-IDEA`
+* _NICHT_ mit Dateiendungen verknüpfen
+* Bei _Run IntelliJ IDEA_ den Haken setzen
+* Abschließend _Finish_ anklicken, damit IntelliJ IDEA gestartet wird.
+
+=== Konfiguration
+
+Zur nachfolgenden Konnfiguration ist ein *Internet-Zugang* erforderlich.
+
+==== Registrierung der _Ultimate Edition_ (nicht bei EAP)
+
+Zu Beginn sind die nachfolgenden Eingaben notwendig.
+
+* _Emailadresse_ von der Registrierung bei JetBrains (*WICHTIG*: mit Domain `@hs-karlsruhe.de`)
+* _Password_ bei JetBrains
+
+==== Theme wählen
+
+IntelliJ oder Darcula
+
+==== Plugins konfigurieren
+
+Den Button _Next: Default Plugins_ anklicken. Jetzt *unbedingt die nachfolgende
+Reihenfolge einhalten* !!!
+
+    Build Tools
+        "Disable All" anklicken
+        "Customize..." anklicken
+            Gradle auswählen
+        "Save Changes and Go Back"
+
+    Version Controls
+        "Disable All" anklicken
+        "Customize..." anklicken
+            GitHub auswählen
+        "Save Changes and Go Back"
+
+    Swing
+        "Disable" anklicken
+
+    Other Tools
+        "Disable All" anklicken
+        "Customize..." anklicken
+            Terminal auswählen
+            YAML auswählen
+        "Save Changes and Go Back"
+
+    Plugin Development
+        "Disable" anklicken
+
+    Test Tools
+        "Disable All" anklicken
+        "Customize..." anklicken
+            JUnit auswählen
+        "Save Changes and Go Back"
+
+    Web Development
+        "Disable All" anklicken
+        "Customize..." anklicken
+            JavaScript auswählen
+            HTTP Client auswählen
+        "Save Changes and Go Back"
+
+    Java Frameworks
+        "Disable All" anklicken
+        "Customize..." anklicken
+            Spring auswählen
+        "Save Changes and Go Back"
+
+==== Weitere Plugins (de-) installieren
+
+Zunächst den Button _Next: Featured Plugins_ anklicken und anschließend
+den Button _Start using IntelliJ IDEA_ anklicken.
+
+Beim Menüpunkt _Configure_ den Unterpunkt _Plugins_ anklicken.
+
+Unter dem Tab ("Karteireiter") bei folgenden Plugins den Haken _entfernen_:
+
+* ASP
+* CFML Support
+* Gherkin
+* Guice
+* J2ME
+* Java EE: Batch Applications
+* Java EE: Web Sockets
+* JavaFX
+* Playframework Support
+* Refactor-X
+* Smali Support
+* Spring Batch
+* Spring Integration Patterns
+* Spring OSGi
+* Spring Web Flow
+* Spring Web Services
+
+Bei folgenden Plugins den Haken _setzen_ und jeweils die vorausgesetzten Plugins mit installieren:
+
+* DSM Analysis
+* Spring Boot
+* Spring MVC
+
+Abschließend die Buttons _OK_ und danach _Restart_ anklicken.
+
+==== Prerelease von Kotlin konfigurieren
+
+Menüpunkt Tools > Kotlin > Configure Kotlin Plugin Updates > Early Access Preview 1.4 > Check for updates now > Install
+
+== _MongoDB Compass Community_ zur Administration von MongoDB
+
+Die .exe-Datei für die aktuelle Version der _Community Edition_ auswählen und herunterladen von:
+`https://www.mongodb.com/download-center#compass`. Danach die .exe-Datei ausführen.
