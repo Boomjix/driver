@@ -5,9 +5,23 @@ import com.fasterxml.jackson.annotation.JsonValue
 enum class Sex(val value: String) {
     MALE("M"),
     FEMALE("F"),
-    DIVERS("D"),
+    DIVERS("D");
 
 
     @JsonValue
+    override fun toString()= value
+
+    companion object {
+        private val nameCache = HashMap<String, Sex>().apply() {
+            enumValues<Sex>().forEach {
+                put(it.value, it)
+                put(it.value.toLowerCase(), it)
+                put(it.name, it)
+                put(it.name.toLowerCase(), it)
+            }
+        }
+
+        fun build(value: String?) = nameCache[value]
+    }
 
 }
