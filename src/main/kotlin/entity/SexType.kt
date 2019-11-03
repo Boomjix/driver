@@ -2,7 +2,7 @@ package de.hska.entity
 
 import com.fasterxml.jackson.annotation.JsonValue
 
-enum class Sex(val value: String) {
+enum class SexType(val value: String) {
     MALE("M"),
     FEMALE("F"),
     DIVERS("D");
@@ -12,8 +12,8 @@ enum class Sex(val value: String) {
     override fun toString()= value
 
     companion object {
-        private val nameCache = HashMap<String, Sex>().apply() {
-            enumValues<Sex>().forEach {
+        private val nameCache = HashMap<String, SexType>().apply() {
+            enumValues<SexType>().forEach {
                 put(it.value, it)
                 put(it.value.toLowerCase(), it)
                 put(it.name, it)
