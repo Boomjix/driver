@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.UniqueElements
     "adress"
 )
 
-data class Driver (
+data class Driver(
     @get:Pattern(regexp = ID_PATTERN, message = "{driver.id.pattern}")
     @JsonIgnore
     val id: String?,
@@ -47,6 +47,8 @@ data class Driver (
     // @JsonFormat(shape = STRING)
     // @field:JsonDeserialize(using = DateDeserializer.class)
     val birthdate: LocalDate?,
+
+    val sales: Sales?,
 
     val homepage: URL?,
 
@@ -102,12 +104,6 @@ override fun equals(other: Any?): Boolean {
          */
         const val MAX_KATEGORIE = 9L
     }
-
-
-
-
-
-
 }
 
 

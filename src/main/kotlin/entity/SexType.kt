@@ -7,9 +7,8 @@ enum class SexType(val value: String) {
     FEMALE("F"),
     DIVERS("D");
 
-
     @JsonValue
-    override fun toString()= value
+    override fun toString() = value
 
     companion object {
         private val nameCache = HashMap<String, SexType>().apply() {
@@ -23,5 +22,4 @@ enum class SexType(val value: String) {
 
         fun build(value: String?) = nameCache[value]
     }
-
 }

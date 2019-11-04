@@ -146,7 +146,7 @@ class DriverService {
             email = "$nachname@hska.de",
             newsletter = true,
             birthdate = birthdate,
-            //sales = sales,
+            sales = sales,
             homepage = homepage,
             sex = FEMALE,
             maritalstatus = MARRIED,

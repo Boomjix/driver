@@ -8,13 +8,12 @@ enum class InterestType(val value: String) {
     LECTURE("L"),
     TRAVEL("T");
 
-
     @JsonValue
     override fun toString() = value
 
     companion object {
-        private val nameCache = HashMap<String, InterestType>().apply{
-            enumValues<InterestType>().forEach{
+        private val nameCache = HashMap<String, InterestType>().apply {
+            enumValues<InterestType>().forEach {
                 put(it.value, it)
                 put(it.value.toLowerCase(), it)
                 put(it.name, it)

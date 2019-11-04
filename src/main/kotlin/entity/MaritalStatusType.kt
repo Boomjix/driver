@@ -20,7 +20,7 @@ enum class MaritalStatusType(val value: String) {
     override fun toString() = value
 
     companion object {
-        private val nameCache = HashMap<String, MaritalStatusType>().apply{
+        private val nameCache = HashMap<String, MaritalStatusType>().apply {
             enumValues<MaritalStatusType>().forEach {
                 put(it.value, it)
                 put(it.value.toLowerCase(), it)
@@ -33,5 +33,4 @@ enum class MaritalStatusType(val value: String) {
 
         fun build(value: String?) = nameCache[value]
     }
-
 }

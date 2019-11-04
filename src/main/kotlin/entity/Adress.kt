@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern
 
 // Class for Domain and saving drivers to the Database
 // @author [Boomjix]
-//@property postalcode Code out of 5 Digits to identify a City
+// @property postalcode Code out of 5 Digits to identify a City
 
 data class Adress(
     @get:NotEmpty(message = "{adress.plz.notEmpty}")
@@ -14,6 +14,4 @@ data class Adress(
 
     @get:NotEmpty(message = "{adress.city.notEmpty}")
     val city: String
-
 )
-

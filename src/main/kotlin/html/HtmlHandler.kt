@@ -12,23 +12,23 @@ import reactor.core.publisher.Mono
 @Component
 class HtmlHandler(private val service: DriverService) {
 
-    //Startseite anzeigen
+    // Startseite anzeigen
 
     fun home(request: ServerRequest) =
         ServerResponse.ok().contentType(TEXT_HTML).render("index")
 
     // Alle Kunden anzeigen
 
-    fun find(request:ServerRequest): Mono<ServerResponse> {
+    fun find(request: ServerRequest): Mono<ServerResponse> {
         val driver = ConcurrentModel()
             .addAttribute(
                 "driver",
-                ReactiveDataDriverContextVariable(service.findAll(),1)
+                ReactiveDataDriverContextVariable(service.findAll(), 1)
                     )
         return ServerResponse.ok().contentType(TEXT_HTML).render("suche", driver)
     }
 
-    //Kunde zu ID anzeigen
+    // Kunde zu ID anzeigen
 
     fun details(request: ServerRequest): Mono<ServerResponse> {
         val driver = ConcurrentModel()
