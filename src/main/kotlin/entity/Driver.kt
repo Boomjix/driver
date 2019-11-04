@@ -105,7 +105,3 @@ override fun equals(other: Any?): Boolean {
         const val MAX_KATEGORIE = 9L
     }
 }
-
-
-
-

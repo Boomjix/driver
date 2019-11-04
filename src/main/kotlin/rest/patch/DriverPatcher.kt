@@ -19,7 +19,6 @@ package de.hska.rest.patch
 import de.hska.entity.InterestType
 import de.hska.entity.Driver
 
-
 /**
  * Singleton-Klasse, um PATCH-Operationen auf Kunde-Objekte anzuwenden.
  *
