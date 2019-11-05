@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.hska.kunde.config
+package de.hska.config
 
 import java.net.InetAddress
 import org.springframework.boot.Banner
